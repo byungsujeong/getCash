@@ -4,4 +4,6 @@ from . import views
 
 app_name = "cashHistories"
 
+
 router = DefaultRouter()
+urlpatterns = router.urls

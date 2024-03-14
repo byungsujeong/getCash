@@ -5,3 +5,4 @@ from . import views
 app_name = "users"
 
 router = DefaultRouter()
+urlpatterns = router.urls
