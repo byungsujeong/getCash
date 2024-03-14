@@ -21,5 +21,5 @@ class Question(core_models.TimeStampModel):
     answer = models.CharField(max_length=255, verbose_name="정답")
     mid = models.CharField(max_length=255, verbose_name="범주")
     quantity = models.IntegerField(verbose_name="수량")
-    type = models.IntegerChoices(choices=TYPE_CHOICES, verbose_name="타입")
+    type = models.IntegerField(choices=TYPE_CHOICES, verbose_name="타입")
 
