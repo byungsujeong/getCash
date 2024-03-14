@@ -40,8 +40,10 @@ DJANGO_APPS = [
 ]
 
 PROEJCT_APPS = [
+    "core.apps.CoreConfig",
     "users.apps.UsersConfig",
     "questions.apps.QuestionsConfig",
+    "cashHistories.apps.CashhistoriesConfig"
 ]
 
 THIRD_PARTY_APPS = [
