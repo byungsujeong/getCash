@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 django = "*"
 djangorestframework = "==3.14.0"
+pyjwt = "*"
+django-dotenv = "*"
+django-import-export = "*"
 
 [dev-packages]
 
