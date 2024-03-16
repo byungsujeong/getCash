@@ -1,11 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAdminUser, AllowAny #, IsAuthenticated
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from rest_framework import status
-
-from django.contrib.auth import authenticate
-from django.conf import settings
+from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
 
 from .serializers import QuestionSerializer
 from .permissions import IsSelf
@@ -21,13 +15,16 @@ class QuestionViewSet(ModelViewSet):
     def get_permissions(self):
 
         admin_permission = ["create", "update", "delete",]
-        any_permission = ["retrieve", "list"]
+        auth_permission = ["list"]
+        any_permission = ["retrieve"]
 
         permission_classes = []
         if self.action in admin_permission:
             permission_classes = [IsAdminUser]
         elif self.action in any_permission:
             permission_classes = [AllowAny]
+        elif self.action in auth_permission:
+            permission_classes = [IsAuthenticated]
         else:
             permission_classes = [IsSelf]
 

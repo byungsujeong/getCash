@@ -9,3 +9,7 @@ from . import models
 class QuestionAdmin(ImportExportMixin, admin.ModelAdmin):
 
     """ Question Admin Definition """
+
+    list_display = (
+        'title', 'answer', 'mid', 'quantity', 'type',
+    )

@@ -7,3 +7,7 @@ from . import models
 class CashHistoryAdmin(admin.ModelAdmin):
 
     """ CashHistory Admin Definition """
+
+    list_display = (
+        'user', 'question', 'submittedAnswer', 'status', 'earned',
+    )
