@@ -7,3 +7,7 @@ from . import models
 class UserAdmin(admin.ModelAdmin):
 
     """ User Admin Definition """
+
+    list_display = (
+        'id', 'username', 'cash',
+    )

@@ -10,6 +10,8 @@ from rest_framework import status
 
 from django.utils import timezone
 
+from users import models as user_models
+
 from .serializers import CashHistorySerializer, ReadOnlyCashHistorySerializer
 from .models import CashHistory
 from .pagination import CustomPagination
@@ -73,20 +75,20 @@ class CashHistoryViewSet(ModelViewSet):
         new_data['user'] = request.user.id
         new_data['question'] = question_id
 
-        if question.type == 1:
+        if question.type == '1':
             filter_kwargs["created__date"] = target_date.date()
             if question.answer == submittedAnswer:
                 new_data['status'] = 1
                 new_data['earned'] = question.quantity
     
-        if question.type == 2:
+        if question.type == '2':
             three_hours_ago = target_date - timedelta(hours=3)
             filter_kwargs["created__gte"] = three_hours_ago
             if question.answer == submittedAnswer:
                 new_data['status'] = 1
                 new_data['earned'] = question.quantity
 
-        if question.type == 3:
+        if question.type == '3':
             if f'{question.title}a' == submittedAnswer:
                 new_data['status'] = 1
                 new_data['earned'] = question.quantity
@@ -99,6 +101,10 @@ class CashHistoryViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
+        if serializer.data['status'] == 1:
+            user_instance = user_models.User.objects.get(pk=request.user.pk)
+            user_instance.cash = user_instance.cash + question.quantity
+            user_instance.save()
         return Response({'code': 0, 'message': None, 'data': serializer.data}, status=status.HTTP_201_CREATED, headers=headers)
 
     def list(self, request, *args, **kwargs):
