@@ -6,4 +6,5 @@ app_name = "cashHistories"
 
 
 router = DefaultRouter()
+router.register("", views.CashHistoryViewSet)
 urlpatterns = router.urls
