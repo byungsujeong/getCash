@@ -1,5 +1,4 @@
 import os
-from datetime import datetime
 from datetime import timedelta
 
 from rest_framework.viewsets import ModelViewSet
