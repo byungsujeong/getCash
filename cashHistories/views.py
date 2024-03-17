@@ -80,16 +80,18 @@ class CashHistoryViewSet(ModelViewSet):
             if question.answer == submittedAnswer:
                 new_data['status'] = 1
                 new_data['earned'] = question.quantity
-    
-        if question.type == '2':
+        elif question.type == '2':
             three_hours_ago = target_date - timedelta(hours=3)
             filter_kwargs["created__gte"] = three_hours_ago
             if question.answer == submittedAnswer:
                 new_data['status'] = 1
                 new_data['earned'] = question.quantity
-
-        if question.type == '3':
+        elif question.type == '3':
             if f'{question.title}a' == submittedAnswer:
+                new_data['status'] = 1
+                new_data['earned'] = question.quantity
+        else:
+            if f'{question.title}new' == submittedAnswer:
                 new_data['status'] = 1
                 new_data['earned'] = question.quantity
           
